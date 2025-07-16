@@ -12,31 +12,30 @@
 
 This section establishes our foundation for diversity analysis. We load the essential packages for ecological analysis: tidyverse for data manipulation, vegan for ecological functions, and broom for tidy model outputs. The vegan package provides access to the dune dataset and specialized diversity functions that are standards in community ecology.
 
-```r
-# Load essential libraries for ecological diversity analysis
-library(tidyverse)  # For data manipulation and visualization
-library(vegan)      # For ecological data and diversity functions
-library(broom)      # For tidying statistical outputs
-library(here)       # For robust file paths
+**AI Agent Instructions for Project Setup:**
 
-# Additional packages for comprehensive diversity analysis
-library(iNEXT)      # For rarefaction and extrapolation
-library(hillR)      # For Hill number calculations
-library(betapart)   # For beta diversity partitioning
-library(mobr)       # For scale-dependent diversity analysis
-library(viridis)    # For color palettes
+1. **Load essential R packages for ecological diversity analysis:**
+   - Load tidyverse for comprehensive data manipulation and visualization capabilities
+   - Load vegan package which provides ecological data and specialized diversity functions
+   - Load broom for converting statistical outputs into tidy data frames
+   - Load here package for creating robust, reproducible file paths
 
-# Set seed for reproducibility of any stochastic operations
-set.seed(123)
+2. **Load additional specialized diversity packages:**
+   - Load iNEXT package for rarefaction and extrapolation analyses
+   - Load hillR package for calculating Hill numbers (unified diversity framework)
+   - Load betapart package for beta diversity partitioning into turnover and nestedness
+   - Load mobr package for scale-dependent diversity analysis
+   - Load viridis package for colorblind-friendly color palettes
 
-# Create output directories if they don't exist
-if (!dir.exists(here("workflows", "05_diversity_metrics", "3_output", "figures"))) {
-  dir.create(here("workflows", "05_diversity_metrics", "3_output", "figures"), recursive = TRUE)
-}
-if (!dir.exists(here("workflows", "05_diversity_metrics", "3_output", "tables"))) {
-  dir.create(here("workflows", "05_diversity_metrics", "3_output", "tables"), recursive = TRUE)
-}
-```
+3. **Set reproducibility parameters:**
+   - Set a random seed value of 123 to ensure reproducible results for any stochastic operations
+
+4. **Create directory structure for outputs:**
+   - Check if the directory "workflows/05_diversity_metrics/3_output/figures" exists
+   - If not, create this directory path recursively to store figure outputs
+   - Check if the directory "workflows/05_diversity_metrics/3_output/tables" exists
+   - If not, create this directory path recursively to store table outputs
+   - Use the here() function to ensure paths work across different operating systems
 
 ---
 
@@ -44,44 +43,40 @@ if (!dir.exists(here("workflows", "05_diversity_metrics", "3_output", "tables"))
 
 Here we prepare the classic dune meadow dataset for diversity analysis. The dune dataset contains species abundances across 20 grassland sites, while dune.env provides environmental variables. This combination allows us to explore how diversity patterns relate to environmental gradients.
 
-```r
-# Load the dune dataset - species abundances in Dutch dune meadows
-data(dune)
-data(dune.env)
+**AI Agent Instructions for Data Wrangling:**
 
-# Convert to tibbles and add site identifiers
-species_data <- as_tibble(dune, rownames = "site_id")
-env_data <- as_tibble(dune.env, rownames = "site_id")
+1. **Load the classic ecological datasets:**
+   - Load the "dune" dataset which contains species abundances in Dutch dune meadows
+   - Load the "dune.env" dataset which contains environmental variables for the same sites
+   - These are built-in datasets from the vegan package
 
-# Quick vibe check on the data structure
-glimpse(species_data)
-glimpse(env_data)
+2. **Convert data to tidy format:**
+   - Convert the dune data to a tibble format, preserving row names as a new column called "site_id"
+   - Convert the dune.env data to a tibble format, preserving row names as a new column called "site_id"
+   - This ensures site identifiers are preserved as explicit columns rather than row names
 
-# Check dimensions and basic properties
-cat("Number of sites:", nrow(species_data), "\n")
-cat("Number of species:", ncol(species_data) - 1, "\n")
-cat("Total abundance across all sites:", sum(species_data[,-1]), "\n")
+3. **Perform initial data exploration:**
+   - Use glimpse() to examine the structure of the species data
+   - Use glimpse() to examine the structure of the environmental data
+   - Print the number of sites (number of rows in species data)
+   - Print the number of species (number of columns minus one for the site_id column)
+   - Calculate and print the total abundance across all sites (sum of all numeric columns)
 
-# Examine environmental variables
-summary(env_data)
+4. **Examine environmental variables:**
+   - Generate a summary of the environmental data to understand variable types and distributions
+   - This helps identify factor levels for management types and ranges for continuous variables
 
-# Create a clean, combined dataset
-# First, reshape species data to long format for easier manipulation
-species_long <- species_data %>%
-  pivot_longer(
-    cols = -site_id,
-    names_to = "species",
-    values_to = "abundance"
-  ) %>%
-  filter(abundance > 0)  # Keep only species that are present
+5. **Create a combined long-format dataset:**
+   - Reshape the species data from wide to long format:
+     - Keep the site_id column as is
+     - Transform all other columns into two new columns: "species" (column names) and "abundance" (values)
+   - Filter to keep only rows where abundance is greater than 0 (remove absent species)
+   - This creates a presence-only dataset in long format
 
-# Join with environmental data
-combined_data <- species_long %>%
-  left_join(env_data, by = "site_id")
-
-# Preview the combined dataset
-head(combined_data, 10)
-```
+6. **Join species and environmental data:**
+   - Perform a left join between the long species data and environmental data using "site_id" as the key
+   - This adds environmental variables to each species occurrence record
+   - Preview the first 10 rows of the combined dataset to verify the join worked correctly
 
 ---
 

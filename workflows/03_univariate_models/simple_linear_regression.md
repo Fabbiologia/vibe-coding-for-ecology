@@ -36,7 +36,7 @@ Set computational reproducibility standards:
 
 ```english
 Create organized structure for analysis outputs:
-- Generate figures subdirectory within workflow 3_output folder for plots
+- Generate figures subdirectory within workflow folder for plots
 - Establish tables subdirectory for statistical summaries and data exports
 - Use here() function to create platform-independent directory paths
 - Check for existing directories to avoid overwriting previous work

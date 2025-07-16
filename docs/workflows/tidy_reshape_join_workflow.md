@@ -19,18 +19,20 @@
 
 This section establishes our data wrangling sanctuary. We load the tidyverse suite, which provides all the tools we need for modern data manipulation. The `here` package ensures our file paths work consistently across different operating systems and project setups. This foundation feels right because it creates a predictable, reproducible environment for our data work.
 
-```english
-Load essential libraries for data wrangling:
-- Load tidyverse for comprehensive data manipulation (dplyr, tidyr, readr, ggplot2)
-- Load here for robust relative file paths that work across systems
-- Load any additional packages needed for specific data operations
+### Instructions for AI Agent:
 
-Establish reproducible foundation:
-- Set random seed to 123 for consistent results across runs
-- Create output directory structure for figures if it doesn't exist
-- Create output directory structure for tables if it doesn't exist
-- Verify workspace is clean and organized for data operations
-```
+**Task:** Set up the data wrangling environment with all necessary packages and reproducible settings.
+
+**Step-by-step instructions:**
+1. Load tidyverse for comprehensive data manipulation (dplyr, tidyr, readr, ggplot2)
+2. Load here package for robust relative file paths that work across systems
+3. Load any additional packages needed for specific data operations
+4. Set random seed to 123 for consistent results across runs
+5. Create output directory structure for figures if it doesn't exist
+6. Create output directory structure for tables if it doesn't exist
+7. Verify workspace is clean and organized for data operations
+
+**Expected output:** A clean R environment with all necessary packages loaded and directory structure established.
 
 ---
 
@@ -40,101 +42,65 @@ Here we demonstrate the core data wrangling patterns using built-in ecological d
 
 ### **Scenario 1: Reshaping Wide to Long (Species Abundance Data)**
 
-```english
-Create simulated species abundance dataset in wide format:
-- Generate site identifiers with consistent naming (Site_1, Site_2, etc.)
-- Add habitat categories for each site (Forest vs Grassland)
-- Include elevation data as continuous environmental variable
-- Create species abundance columns (Quercus alba, Acer rubrum, Pinus strobus, Carex pensylvanica)
-- Use realistic abundance values that reflect habitat preferences
+### Instructions for AI Agent:
 
-Inspect wide format structure:
-- Use glimpse() to examine data structure and column types
-- Verify that each species appears as separate column
-- Check for missing values or inconsistencies
-- Confirm site identifiers are unique and properly formatted
+**Task:** Reshape, inspect, and validate a species abundance dataset. 
 
-Reshape from wide to long format:
-- Use pivot_longer() to convert species columns to rows
-- Specify which columns contain species data
-- Create new 'species' column for species names
-- Create new 'abundance' column for abundance values
-- Apply string cleaning to species names (replace underscores with spaces)
-- Verify transformation preserved all data without loss
+**Step-by-step instructions:**
+1. Generate a simulated species abundance dataset in wide format with site identifiers, habitat categories, elevation data, and species abundance columns.
+2. Inspect the wide format data structure using appropriate methods to ensure each species is a separate column and check for any inconsistencies or missing values.
+3. Reshape the dataset from wide to long format by converting species columns to rows and creating new 'species' and 'abundance' columns.
+4. Apply string cleaning to standardize species names.
+5. Validate the transformation by checking the dimensions and ensuring the integrity of data is maintained.
 
-Validate the tidy transformation:
-- Check dimensions of long format vs wide format
-- Confirm all species-site combinations are present
-- Verify abundance values transferred correctly
-- Ensure species names are clean and standardized
-```
+**Expected output:** A tidy long-format species abundance dataset ready for analysis.
 
 ### **Scenario 2: Joining Environmental and Species Data**
 
-```english
-Create complementary environmental dataset:
-- Generate environmental data for same sites as species data
-- Include soil pH measurements with realistic values
-- Add annual precipitation data in millimeters
-- Include canopy cover percentages reflecting habitat types
-- Ensure site identifiers match species data exactly
+### Instructions for AI Agent:
 
-Perform data joining operations:
-- Use left_join() to combine species and environmental data
-- Join by site_id to maintain data integrity
-- Verify all species records retain environmental information
-- Check for any unmatched sites or missing environmental data
+**Task:** Join environmental data with species data and calculate derived ecological metrics.
 
-Calculate derived ecological metrics:
-- Group data by site to calculate site-level summaries
-- Compute species richness (number of species with abundance > 0)
-- Calculate total abundance per site across all species
-- Add these metrics as new columns to the dataset
-- Ungroup data to return to observation-level structure
+**Step-by-step instructions:**
+1. Create complementary environmental dataset with soil pH, precipitation, and canopy cover data for the same sites as species data.
+2. Perform left_join() to combine species and environmental data using site identifiers.
+3. Verify all species records retain environmental information and check for unmatched sites.
+4. Calculate derived ecological metrics including species richness and total abundance per site.
+5. Validate the joining operation by checking dimensions and data integrity.
 
-Validate joining operation:
-- Confirm dimensions increased appropriately
-- Check that all original species data is preserved
+**Expected output:** A combined dataset with species, environmental, and derived ecological metrics.
 
 ### **Scenario 3: Cleaning and Filtering Operations**
 
-Introduce realistic data quality issues. Add missing values to environmental variables (e.g., missing soil pH). Create inconsistent species naming (abbreviations, case inconsistencies). Introduce impossible values (e.g., canopy cover > 100%). Simulate common field data entry errors. Document which sites/variables have quality issues.
+### Instructions for AI Agent:
 
-Implement systematic data cleaning. Standardize species names using pattern matching and replacement. Fix abbreviations and case inconsistencies in taxonomic names. Apply title case formatting consistently across species names. Handle impossible values by converting to NA or applying logical constraints. Remove rows with critical missing data that cannot be imputed.
+**Task:** Clean and validate ecological data with realistic quality issues.
 
-Apply data validation filters. Remove records with missing site identifiers. Filter out records with missing species information. Ensure abundance values are non-negative (no negative abundances). Verify elevation values are positive and realistic. Check for duplicate records and resolve appropriately.
+**Step-by-step instructions:**
+1. Introduce realistic data quality issues including missing values, inconsistent naming, and impossible values.
+2. Implement systematic data cleaning by standardizing species names and handling impossible values.
+3. Apply data validation filters to remove records with missing critical information.
+4. Document all cleaning operations including counts of missing values and corrections made.
+5. Create a summary of data quality before and after cleaning operations.
 
-Document cleaning operations. Count missing values before and after cleaning. Track impossible values detected and corrected. Record the number of unique species names before and after standardization. Verify data dimensions and completeness after cleaning. Create a summary of all cleaning operations performed.
-
+**Expected output:** A cleaned and validated dataset ready for ecological analysis with documentation of all cleaning steps.
 ---
 
 ## 🔬 3. The Analysis: Asking Our Questions
 
 Now we apply our cleaned data to answer ecological questions. Data wrangling enables analysis - here we calculate summary statistics and explore patterns that would be difficult with messy data. The tidy format makes grouping operations intuitive and the results immediately interpretable.
 
-```english
-Calculate habitat-based summary statistics:
-- Group data by site, habitat, and elevation class
-- Compute species richness (count of species with abundance > 0)
-- Calculate total abundance per site across all species
-- Compute Shannon diversity index using standard ecological formula
-- Display results in organized summary table
+### Instructions for AI Agent:
 
-Analyze species occurrence patterns:
-- Group data by species and habitat combination
-- Count number of sites where each species is present
-- Calculate mean abundance when species is present (excluding zeros)
-- Determine maximum abundance recorded for each species
-- Sort results by frequency of occurrence across sites
+**Task:** Analyze cleaned ecological data to answer key ecological questions.
 
-Examine environmental correlations:
-- Filter to include only sites where species are present
-- Group analysis by individual species
-- Calculate correlation between abundance and elevation
-- Compute correlation between abundance and soil pH
-- Determine correlation between abundance and precipitation
-- Use complete observations only to handle missing data appropriately
-```
+**Step-by-step instructions:**
+1. Calculate habitat-based summary statistics including species richness, total abundance, and Shannon diversity index grouped by site, habitat, and elevation class.
+2. Analyze species occurrence patterns by counting site presence, calculating mean abundance when present, and determining maximum abundance for each species-habitat combination.
+3. Examine environmental correlations by calculating correlations between species abundance and environmental variables (elevation, soil pH, precipitation) using complete observations only.
+4. Display all results in organized summary tables with clear variable names.
+
+**Expected output:** Comprehensive ecological summary statistics and correlation analyses ready for interpretation.
 
 ---
 
@@ -142,36 +108,18 @@ Examine environmental correlations:
 
 Visualization reveals patterns that summary statistics alone cannot capture. These plots demonstrate how proper data wrangling enables clear, informative graphics. Each visualization answers a specific ecological question about species distributions and environmental relationships.
 
-```english
-Create species richness visualization:
-- Use habitat summary data grouped by elevation class and habitat
-- Design boxplot showing species richness distribution across elevation classes
-- Fill boxes by habitat type to show habitat-specific patterns
-- Add individual data points with jitter to show site-level variation
-- Apply theme_bw() for clean, publication-ready appearance
-- Include descriptive title and properly labeled axes
-- Position legend at bottom for clarity
-- Save as high-resolution PNG (300 DPI, 8x6 inches)
+### Instructions for AI Agent:
 
-Generate species abundance patterns plot:
-- Filter data to include only sites where species are present
-- Create column chart showing abundance by species and habitat
-- Use dodged position to compare habitats side-by-side
-- Apply semi-transparent fills for visual appeal
-- Rotate x-axis labels 45 degrees for readability
-- Use consistent theme_bw() styling
-- Save as publication-quality figure (300 DPI, 10x6 inches)
+**Task:** Create publication-quality visualizations of ecological patterns.
 
-Develop environmental relationship visualizations:
-- Create scatter plot showing abundance vs elevation relationship
-- Color points by species to distinguish taxa
-- Add linear trend lines for each species (without confidence intervals)
-- Use facet wrapping to separate by habitat type
-- Include only sites where species are present
-- Apply consistent theme_bw() styling with bold facet labels
-- Position legend at bottom to avoid overcrowding
-- Save as wide-format figure (300 DPI, 12x6 inches)
-```
+**Step-by-step instructions:**
+1. Create species richness visualization using boxplots grouped by elevation class and habitat type, with individual data points and jitter for site-level variation.
+2. Generate species abundance patterns plot using column charts with dodged positioning to compare habitats side-by-side.
+3. Develop environmental relationship visualizations using scatter plots with species-specific trend lines and faceting by habitat type.
+4. Apply consistent theme_bw() styling to all plots with appropriate titles, axis labels, and legend positioning.
+5. Save all visualizations as high-resolution PNG files (300 DPI) with appropriate dimensions for publication.
+
+**Expected output:** Three publication-ready ecological visualizations saved to the figures directory.
 
 ---
 
@@ -179,25 +127,18 @@ Develop environmental relationship visualizations:
 
 Proper data wrangling creates a foundation for reproducible research. Here we save our processed data, document our workflow, and ensure others can replicate our analysis. The tidy data we've created serves as a clean foundation for any subsequent ecological analysis.
 
-```english
-Save processed datasets for future analysis:
-- Export cleaned ecological dataset as CSV to tables output folder
-- Save habitat summary statistics in structured CSV format
-- Store species occurrence patterns for subsequent workflows
-- Use here() function for robust file paths across systems
-- Ensure all output tables are properly named and organized
+### Instructions for AI Agent:
 
-Document computational environment:
-- Record sessionInfo() to capture R version and package versions
-- Note system information and locale settings
-- Document random seed used for reproducibility
-- Include timestamp of analysis completion
-- Create comprehensive record for future replication
-cat("Visualizations saved to 3_output/figures/\n\n")
+**Task:** Ensure reproducibility by saving processed data and documenting the computational environment.
 
-# Record session information for reproducibility
-sessionInfo()
-```
+**Step-by-step instructions:**
+1. Save all processed datasets as CSV files to the tables output folder using robust file paths.
+2. Export habitat summary statistics, species occurrence patterns, and cleaned ecological data in structured formats.
+3. Document the computational environment by recording sessionInfo() to capture R version, package versions, and system information.
+4. Include timestamp of analysis completion and random seed used for reproducibility.
+5. Create a comprehensive record that enables future replication of the analysis.
+
+**Expected output:** Saved datasets in CSV format and complete documentation of the computational environment for reproducibility.
 
 ---
 
