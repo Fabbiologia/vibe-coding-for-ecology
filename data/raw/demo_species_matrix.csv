@@ -1,0 +1,13 @@
+site_id,habitat,latitude,longitude,elevation_m,Quercus_alba,Acer_rubrum,Pinus_strobus,Carex_pensylvanica,Vaccinium_corymbosum,Betula_papyrifera,Trillium_grandiflorum
+Site_01,Forest,44.2619,-72.5806,1200,15,8,20,2,5,3,12
+Site_02,Forest,44.2625,-72.5812,1250,12,10,18,3,7,4,8
+Site_03,Forest,44.2631,-72.5818,1300,8,12,15,5,4,6,5
+Site_04,Forest,44.2637,-72.5824,1350,5,10,12,8,2,8,2
+Site_05,Grassland,44.2505,-72.5645,800,0,3,1,25,0,1,0
+Site_06,Grassland,44.2511,-72.5651,850,0,5,0,30,1,2,1
+Site_07,Grassland,44.2517,-72.5657,900,2,7,3,28,0,3,0
+Site_08,Grassland,44.2523,-72.5663,950,1,6,2,22,0,2,0
+Site_09,Wetland,44.2440,-72.5580,780,0,8,0,15,12,10,4
+Site_10,Wetland,44.2446,-72.5586,785,1,12,1,18,15,12,6
+Site_11,Forest,44.2590,-72.5750,1180,18,6,22,1,8,2,15
+Site_12,Forest,44.2596,-72.5756,1220,14,9,19,2,6,3,10

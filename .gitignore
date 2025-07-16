@@ -1,0 +1,70 @@
+# R and RStudio files
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj
+
+# R environment snapshots
+.Rprofile
+renv/
+packrat/
+.Renviron
+
+# R temporary files
+*.Rout
+*.Rcheck/
+.Rapp.history
+
+# Python files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.env
+
+# Data files (large datasets should not be in git)
+*.csv
+*.rds
+*.rda
+*.RData
+!data/raw/*.csv
+!data/processed/*.rds
+
+# Output files
+*.png
+*.pdf
+*.html
+*.docx
+!3_output/figures/.gitkeep
+!3_output/tables/.gitkeep
+
+# System files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Log files
+*.log
+run.log
+
+# Temporary files
+tmp/
+temp/
+*.tmp
