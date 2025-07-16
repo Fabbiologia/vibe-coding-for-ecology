@@ -1,5 +1,12 @@
 # Vibe Workflow: Multivariate Analysis: Ordination, Clustering, and PERMANOVA
 
+[![Reproducible](https://img.shields.io/badge/Reproducible-Yes-brightgreen)](https://github.com/Fabbiologia/vibe-coding-for-ecology)
+[![R](https://img.shields.io/badge/R-4.0+-blue)](https://www.r-project.org/)
+[![Tidyverse](https://img.shields.io/badge/Tidyverse-Compatible-orange)](https://www.tidyverse.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+
+
 **Goal:** Comprehensive multivariate analysis of ecological communities using ordination (PCA, NMDS), clustering, and PERMANOVA to understand patterns, test hypotheses, and reveal ecological gradients.
 
 **Vibe:** Transform complex ecological data into clear, interpretable patterns while rigorously testing community-environment relationships.

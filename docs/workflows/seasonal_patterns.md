@@ -1,5 +1,12 @@
 # Vibe Workflow: Time Series Analysis: Seasonal Patterns
 
+[![Reproducible](https://img.shields.io/badge/Reproducible-Yes-brightgreen)](https://github.com/Fabbiologia/vibe-coding-for-ecology)
+[![R](https://img.shields.io/badge/R-4.0+-blue)](https://www.r-project.org/)
+[![Tidyverse](https://img.shields.io/badge/Tidyverse-Compatible-orange)](https://www.tidyverse.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+
+
 **Goal:** Uncover temporal patterns in ecological datasets to reveal cycles, shifts, and trends.
 
 **Vibe:** Temporal analysis to understand time-based ecological responses and dynamics.

@@ -1,5 +1,12 @@
 # Vibe Workflow: Univariate Models: Simple Linear Regression
 
+[![Reproducible](https://img.shields.io/badge/Reproducible-Yes-brightgreen)](https://github.com/Fabbiologia/vibe-coding-for-ecology)
+[![R](https://img.shields.io/badge/R-4.0+-blue)](https://www.r-project.org/)
+[![Tidyverse](https://img.shields.io/badge/Tidyverse-Compatible-orange)](https://www.tidyverse.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+
+
 **Goal:** Develop understanding of relationships between two variables, using the classic iris dataset as an example.
 
 **Vibe:** Building blocks of ecological analysis, focusing on simplicity and clarity in understanding one-to-one relationships.
