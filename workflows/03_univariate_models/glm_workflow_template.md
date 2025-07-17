@@ -1,5 +1,12 @@
 # Vibe Workflow: Generalized Linear Models (GLMs) for Ecological Data
 
+[![Reproducible](https://img.shields.io/badge/Reproducible-Yes-brightgreen)](https://github.com/Fabbiologia/vibe-coding-for-ecology)
+[![R](https://img.shields.io/badge/R-4.0+-blue)](https://www.r-project.org/)
+[![Tidyverse](https://img.shields.io/badge/Tidyverse-Compatible-orange)](https://www.tidyverse.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+
+
 **Goal:** Master the art of fitting GLMs for ecological data, from selecting appropriate error structures to validating assumptions and interpreting results in biological context.
 
 **Vibe:** GLMs are the Swiss Army knife of ecological statistics. They handle the messy reality of ecological data - counts, proportions, and non-normal distributions - while maintaining the interpretable framework of linear modeling. Every model tells a story about ecological processes.

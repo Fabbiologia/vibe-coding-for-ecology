@@ -1,5 +1,12 @@
 # 🤖 Agentic Ecology Analysis Template
 
+[![Reproducible](https://img.shields.io/badge/Reproducible-Yes-brightgreen)](https://github.com/Fabbiologia/vibe-coding-for-ecology)
+[![R](https://img.shields.io/badge/R-4.0+-blue)](https://www.r-project.org/)
+[![Tidyverse](https://img.shields.io/badge/Tidyverse-Compatible-orange)](https://www.tidyverse.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+
+
 **Context Prompt Engineering for AI-Assisted Ecological Analysis**
 
 ## 🎯 Template Overview
@@ -148,7 +155,7 @@ Please proceed with the analysis following these guidelines.
 
 ### Standard Ecological Plots
 
-```
+```r
 # ECOLOGICAL VISUALIZATION CONTEXT
 
 ## Plot Type: [ordination/regression/diversity/composition]
@@ -170,7 +177,7 @@ Please proceed with the analysis following these guidelines.
 
 ### Interactive Visualization for Exploration
 
-```
+```r
 # INTERACTIVE VISUALIZATION CONTEXT
 
 ## Purpose: Data exploration and hypothesis generation
@@ -256,6 +263,41 @@ Please proceed with the analysis following these guidelines.
 - Iterative: Agents refine each other's work through feedback loops
 - Consensus: Agents vote on analytical decisions
 ```
+
+### Adaptive Template Selection
+
+```r
+# ADAPTIVE TEMPLATE LOGIC
+
+## Data-Driven Template Selection
+if (data_type == "species_abundance") {
+  if (spatial_autocorrelation) {
+    template <- "spatial_community_analysis"
+  } else if (temporal_component) {
+    template <- "temporal_community_dynamics"
+  } else {
+    template <- "basic_community_analysis"
+  }
+} else if (data_type == "individual_counts") {
+  if (hierarchical_structure) {
+    template <- "mixed_effects_population"
+  } else if (survival_data) {
+    template <- "survival_analysis"
+  } else {
+    template <- "glm_population_analysis"
+  }
+}
+
+## Context-Sensitive Prompt Generation
+generate_context_prompt(
+  template = template,
+  study_system = user_input$system,
+  research_question = user_input$question,
+  data_characteristics = data_summary,
+  constraints = user_input$constraints
+)
+```
+
 ---
 
 ## 📚 Integration with Existing Workflows

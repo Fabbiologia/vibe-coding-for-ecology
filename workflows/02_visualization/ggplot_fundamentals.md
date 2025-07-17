@@ -1,5 +1,12 @@
 # Vibe Workflow: ggplot2 Fundamentals for Ecological Data
 
+[![Reproducible](https://img.shields.io/badge/Reproducible-Yes-brightgreen)](https://github.com/Fabbiologia/vibe-coding-for-ecology)
+[![R](https://img.shields.io/badge/R-4.0+-blue)](https://www.r-project.org/)
+[![Tidyverse](https://img.shields.io/badge/Tidyverse-Compatible-orange)](https://www.tidyverse.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+
+
 **Goal:** Master the essential ggplot2 patterns for creating clear, informative, and publication-ready ecological visualizations.
 
 **Vibe:** Building beautiful plots is storytelling with data. Every aesthetic choice should serve the narrative and help your audience understand the ecological patterns you've discovered.
@@ -12,7 +19,7 @@
 
 This workflow teaches the grammar of graphics through ecological examples. We'll explore how to layer aesthetic mappings, geometries, and themes to create compelling visualizations that communicate ecological insights effectively. Each plot type serves a specific purpose in ecological analysis.
 
-```
+```english
 Load essential libraries for ecological visualization:
 - Load tidyverse for comprehensive data manipulation and ggplot2
 - Load viridis for colorblind-friendly color palettes
@@ -34,7 +41,7 @@ Establish reproducible visualization environment:
 
 We'll use multiple datasets to demonstrate different visualization approaches. The iris dataset provides continuous variables for regression plots, while our custom ecological data shows discrete patterns. We prepare the data to highlight specific visualization principles.
 
-```
+```english
 Prepare demonstration datasets:
 - Load built-in iris dataset for continuous variable examples
 - Load mtcars dataset for additional regression demonstrations
@@ -73,7 +80,7 @@ glimpse(site_diversity)
 
 Before jumping into visualization, we explore our data to understand the patterns we want to highlight. Each plot type serves a specific analytical purpose - from showing distributions to revealing relationships to comparing groups. Understanding your data structure guides visualization choices.
 
-```
+```english
 Develop habitat pattern summaries:
 - Group data by habitat type across all sites
 - Calculate mean species richness and total abundance per habitat
@@ -110,7 +117,7 @@ Each plot type serves a specific purpose in ecological communication. We demonst
 
 ### **Plot 1: Basic Scatter Plot with Regression Lines**
 
-```
+```english
 Create foundational scatter plot demonstrating core ggplot2 principles:
 - Use site diversity data with elevation on x-axis and species richness on y-axis
 - Color points by habitat type using viridis color palette for accessibility
@@ -125,7 +132,7 @@ Create foundational scatter plot demonstrating core ggplot2 principles:
 
 ### **Plot 2: Advanced Box Plots with Individual Points**
 
-```
+```english
 Develop sophisticated box plot combining statistical summaries with raw data:
 - Filter species data to include only sites where species are present
 - Reorder species by median abundance for logical visual progression
@@ -141,7 +148,7 @@ Develop sophisticated box plot combining statistical summaries with raw data:
 
 ### **Plot 3: Faceted Bar Chart with Error Bars**
 
-```
+```english
 Construct faceted bar chart demonstrating habitat-specific patterns:
 - Use habitat summary data with species reordered by mean abundance within each habitat
 - Create column chart with bars filled by habitat using plasma color option
@@ -157,7 +164,7 @@ Construct faceted bar chart demonstrating habitat-specific patterns:
 
 ### **Plot 4: Heatmap with Custom Color Scale**
 
-```
+```english
 Develop association matrix heatmap revealing species-habitat relationships:
 - Group species data by habitat and species to calculate mean abundance
 - Reorder species by mean abundance for logical arrangement
@@ -173,7 +180,7 @@ Develop association matrix heatmap revealing species-habitat relationships:
 
 ### **Plot 5: Complex Multi-aesthetic Scatter Plot**
 
-```
+```english
 Create sophisticated multi-dimensional visualization demonstrating advanced aesthetics:
 - Use site diversity data with elevation vs Shannon diversity as base relationship
 - Map soil pH to color using plasma palette for continuous environmental gradient
@@ -190,7 +197,7 @@ Create sophisticated multi-dimensional visualization demonstrating advanced aest
 
 ### **Plot 6: Elevation Profile with Uncertainty Bands**
 
-```
+```english
 Develop profile plot demonstrating ribbon and line combinations:
 - Sort site diversity data by elevation to create logical sequence
 - Create base relationship between elevation and species richness
@@ -208,7 +215,7 @@ Develop profile plot demonstrating ribbon and line combinations:
 
 ### **Saving Individual Plots**
 
-```
+```english
 Save each visualization using systematic file naming and high-quality settings:
 - Create output directory path using here() for relative path management
 - Save scatter plot with dimensions 8x6 inches at 300 DPI for publication quality
@@ -223,7 +230,7 @@ Save each visualization using systematic file naming and high-quality settings:
 
 ### **Creating Combined Figure Layouts**
 
-```
+```english
 Develop multi-panel figure using patchwork for comprehensive presentation:
 - Combine scatter and box plots in top row using addition operator
 - Combine bar chart and heatmap in bottom row for visual balance
@@ -244,7 +251,7 @@ We document our visualization choices and save the underlying data. Good ecologi
 
 ### **Data Preservation for Reproducibility**
 
-```
+```english
 Save all processed datasets used in visualization workflow:
 - Export species abundance data to RDS format with descriptive filename
 - Save habitat summary statistics preserving calculated means and standard errors
@@ -256,7 +263,7 @@ Save all processed datasets used in visualization workflow:
 
 ### **Visualization Metadata Documentation**
 
-```
+```english
 Create comprehensive metadata list documenting design decisions:
 - Record color palette choice (viridis for colorblind accessibility)
 - Document base themes used (theme_bw and theme_minimal)
@@ -282,7 +289,7 @@ Generate comprehensive plotting guide for future reference:
 
 ### **Session Documentation and Summary**
 
-```
+```english
 Document analysis session for complete reproducibility:
 - Print comprehensive summary of visualization accomplishments
 - Count and list all plot types successfully demonstrated
@@ -306,7 +313,7 @@ Every visualization workflow must include comprehensive testing to ensure accura
 
 ### **Data Integrity Validation**
 
-```
+```english
 Verify data processing accuracy before visualization:
 - Check that original dataset dimensions are preserved through transformations
 - Validate that no data points are lost during joining or filtering operations
@@ -320,7 +327,7 @@ Verify data processing accuracy before visualization:
 
 ### **Visualization Output Quality Assurance**
 
-```
+```english
 Test visualization quality and technical specifications:
 - Verify all plots render without errors or warning messages
 - Check that color palettes display correctly across different devices
@@ -334,7 +341,7 @@ Test visualization quality and technical specifications:
 
 ### **Accessibility and Design Standards Validation**
 
-```
+```english
 Ensure visualizations meet accessibility and scientific communication standards:
 - Test color palette accessibility using colorblind simulation tools
 - Verify sufficient contrast between text and background elements
@@ -348,7 +355,7 @@ Ensure visualizations meet accessibility and scientific communication standards:
 
 ### **Ecological Interpretation Validation**
 
-```
+```english
 Validate biological and ecological meaningfulness of visualizations:
 - Confirm that species-environment relationships shown are ecologically plausible
 - Check that diversity patterns align with known ecological theory
@@ -362,7 +369,7 @@ Validate biological and ecological meaningfulness of visualizations:
 
 ### **Reproducibility Stress Testing**
 
-```
+```english
 Test workflow robustness across different computational environments:
 - Run complete workflow in clean R environment to test dependency management
 - Verify results remain identical across different operating systems
@@ -376,7 +383,7 @@ Test workflow robustness across different computational environments:
 
 ### **Output Validation Protocols**
 
-```
+```english
 Implement systematic checks for all workflow outputs:
 - Verify that all expected figure files are created with correct dimensions
 - Check saved data files contain expected variables and observations

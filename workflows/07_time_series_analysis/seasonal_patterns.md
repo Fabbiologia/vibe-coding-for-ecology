@@ -1,5 +1,12 @@
 # Vibe Workflow: Time Series Analysis: Seasonal Patterns
 
+[![Reproducible](https://img.shields.io/badge/Reproducible-Yes-brightgreen)](https://github.com/Fabbiologia/vibe-coding-for-ecology)
+[![R](https://img.shields.io/badge/R-4.0+-blue)](https://www.r-project.org/)
+[![Tidyverse](https://img.shields.io/badge/Tidyverse-Compatible-orange)](https://www.tidyverse.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+
+
 **Goal:** Uncover temporal patterns in ecological datasets to reveal cycles, shifts, and trends.
 
 **Vibe:** Temporal analysis to understand time-based ecological responses and dynamics.
@@ -12,12 +19,27 @@
 
 Time series analysis in ecology reveals the rhythms of life - from daily activity patterns to seasonal migrations to climate-driven long-term trends. We'll explore multiple approaches: classical decomposition to separate trend/seasonal/residual components, change point analysis to detect regime shifts, and smooth trend fitting to model nonlinear temporal patterns. Each method illuminates different aspects of temporal ecological patterns.
 
-> **Cursor AI Prompt:**
-> 
-> Write R code to:
-> - Load the following libraries: tidyverse, lubridate, forecast, bcp, mgcv, viridis, here.
-> - Set a random seed to 123.
-> - Create output directories for figures and tables in workflows/07_time_series_analysis/3_output if they do not exist, using here().
+```r
+# Load essential libraries for time series analysis
+library(tidyverse)  # For data manipulation and visualization
+library(lubridate)  # For date/time handling
+library(forecast)   # For time series decomposition and forecasting
+library(bcp)        # For Bayesian change point analysis
+library(mgcv)       # For smooth trend modeling with GAMs
+library(viridis)    # For colorblind-friendly palettes
+library(here)       # For robust file paths
+
+# Set seed for reproducibility
+set.seed(123)
+
+# Create output directories if they don't exist
+if (!dir.exists(here("workflows", "07_time_series_analysis", "3_output", "figures"))) {
+  dir.create(here("workflows", "07_time_series_analysis", "3_output", "figures"), recursive = TRUE)
+}
+if (!dir.exists(here("workflows", "07_time_series_analysis", "3_output", "tables"))) {
+  dir.create(here("workflows", "07_time_series_analysis", "3_output", "tables"), recursive = TRUE)
+}
+```
 
 ---
 
@@ -25,13 +47,83 @@ Time series analysis in ecology reveals the rhythms of life - from daily activit
 
 We prepare time series data with proper temporal structure, ensuring dates are correctly formatted and missing time points are identified. We create multiple time series representing different ecological processes: species abundance, phenological stages, and environmental drivers. This demonstrates common patterns in ecological monitoring data.
 
-> **Cursor AI Prompt:**
-> 
-> Write R code to:
-> - Load the demo time series dataset from data/raw/demo_time_series.csv.
-> - Parse dates, extract month, season, day of year, and convert phenology stages to numeric codes.
-> - Create an extended synthetic dataset with monthly data from 2020-2023, including temperature, species abundance, and spring onset day, with seasonal and trend components.
-> - Print data overviews and check for missing time points in the original dataset.
+```r
+# Load the demo time series dataset
+time_series_data <- read_csv(here("data", "raw", "demo_time_series.csv")) %>%
+  mutate(
+    date = as.Date(date),
+    month = month(date, label = TRUE),
+    season = case_when(
+      month %in% c("Dec", "Jan", "Feb") ~ "Winter",
+      month %in% c("Mar", "Apr", "May") ~ "Spring",
+      month %in% c("Jun", "Jul", "Aug") ~ "Summer",
+      month %in% c("Sep", "Oct", "Nov") ~ "Fall"
+    ),
+    day_of_year = yday(date),
+    phenology_numeric = case_when(
+      phenology_stage == "dormant" ~ 0,
+      phenology_stage == "bud_break" ~ 1,
+      phenology_stage == "growth_initiation" ~ 1,
+      phenology_stage == "leaf_emergence" ~ 2,
+      phenology_stage == "active_growth" ~ 2,
+      phenology_stage == "full_leaf" ~ 3,
+      phenology_stage == "flowering" ~ 4,
+      phenology_stage == "seed_set" ~ 5,
+      phenology_stage == "seed_dispersal" ~ 4,
+      phenology_stage == "senescence" ~ 2,
+      phenology_stage == "senescence_begin" ~ 2,
+      phenology_stage == "dormancy_prep" ~ 1
+    )
+  )
+
+# Create additional synthetic time series for demonstration
+# Multi-year data with trends and noise
+extended_data <- tibble(
+  date = seq(as.Date("2020-01-15"), as.Date("2023-12-15"), by = "month"),
+  year = year(date),
+  month = month(date),
+  day_of_year = yday(date)
+) %>%
+  mutate(
+    # Seasonal temperature pattern with warming trend
+    temperature_c = 15 + 10 * sin(2 * pi * (day_of_year - 80) / 365) + 
+                   0.5 * (year - 2020) + rnorm(n(), 0, 2),
+    
+    # Species abundance with seasonal cycle and population trend
+    species_abundance = pmax(0, 
+      20 + 15 * sin(2 * pi * (day_of_year - 120) / 365) + 
+      -1.5 * (year - 2020) + rnorm(n(), 0, 3)
+    ),
+    
+    # Phenological timing shift (earlier spring events over time)
+    spring_onset_day = 80 - 2 * (year - 2020) + rnorm(n(), 0, 5),
+    
+    season = case_when(
+      month %in% c(12, 1, 2) ~ "Winter",
+      month %in% c(3, 4, 5) ~ "Spring", 
+      month %in% c(6, 7, 8) ~ "Summer",
+      month %in% c(9, 10, 11) ~ "Fall"
+    )
+  )
+
+# Quick exploration of temporal patterns
+glimpse(time_series_data)
+glimpse(extended_data)
+
+cat("Time series data overview:\n")
+cat("Date range:", min(time_series_data$date), "to", max(time_series_data$date), "\n")
+cat("Species:", length(unique(time_series_data$species)), "\n")
+cat("Sites:", length(unique(time_series_data$site_id)), "\n")
+cat("Extended data range:", min(extended_data$date), "to", max(extended_data$date), "\n")
+
+# Check for missing time points
+missing_dates <- time_series_data %>%
+  complete(date, species, site_id) %>%
+  filter(is.na(abundance)) %>%
+  nrow()
+
+cat("Missing time points:", missing_dates, "\n")
+```
 
 ---
 
@@ -39,13 +131,127 @@ We prepare time series data with proper temporal structure, ensuring dates are c
 
 Time series analysis reveals multiple temporal patterns: seasonal cycles, long-term trends, and abrupt changes. We apply classical decomposition to separate these components, use change point analysis to detect regime shifts, and fit smooth trends to capture nonlinear temporal dynamics. Each approach answers different ecological questions about temporal patterns.
 
-> **Cursor AI Prompt:**
-> 
-> Write R code to:
-> - For a selected species and site, extract the abundance time series, create a ts object, and perform classical decomposition (trend, seasonal, residual). Summarize the decomposition results.
-> - Use Bayesian change point analysis (bcp) to detect changes in mean temperature in the extended dataset. Summarize and count likely and major change points.
-> - Summarize seasonal patterns by species and month, including mean and standard deviation of abundance and phenology, and calculate standard errors.
-> - Analyze phenological timing for key stages (bud_break, full_leaf, senescence, growth_initiation, flowering) by species, summarizing mean and earliest day of year.
+```r
+# Analysis 1: Classical time series decomposition
+# Focus on one species for detailed decomposition
+quercus_ts <- time_series_data %>%
+  filter(species == "Quercus_alba", site_id == "Site_01") %>%
+  arrange(date) %>%
+  pull(abundance)
+
+# Create time series object
+quercus_timeseries <- ts(quercus_ts, frequency = 12, start = c(2023, 1))
+
+# Decompose the time series
+decomposition <- decompose(quercus_timeseries, type = "additive")
+
+# Extract components
+decomp_data <- tibble(
+  date = time_series_data %>% 
+    filter(species == "Quercus_alba", site_id == "Site_01") %>% 
+    arrange(date) %>% 
+    pull(date),
+  observed = as.numeric(decomposition$x),
+  trend = as.numeric(decomposition$trend),
+  seasonal = as.numeric(decomposition$seasonal),
+  residual = as.numeric(decomposition$random)
+) %>%
+  filter(!is.na(trend))  # Remove NAs from trend estimation
+
+print("Time series decomposition summary:")
+print(summary(decomp_data))
+
+# Analysis 2: Change point detection on extended data
+# Detect changes in mean temperature
+temp_bcp <- bcp(extended_data$temperature_c, mcmc = 5000, burnin = 1000)
+
+# Extract probability of change points
+change_points <- tibble(
+  date = extended_data$date,
+  temperature = extended_data$temperature_c,
+  change_prob = temp_bcp$prob.mean
+) %>%
+  mutate(
+    likely_change = change_prob > 0.5,
+    major_change = change_prob > 0.8
+  )
+
+cat("Change point analysis results:\n")
+cat("Likely change points (>50%):", sum(change_points$likely_change), "\n")
+cat("Major change points (>80%):", sum(change_points$major_change), "\n")
+
+# Analysis 3: Seasonal pattern analysis
+seasonal_patterns <- time_series_data %>%
+  group_by(species, month) %>%
+  summarise(
+    mean_abundance = mean(abundance, na.rm = TRUE),
+    sd_abundance = sd(abundance, na.rm = TRUE),
+    mean_phenology = mean(phenology_numeric, na.rm = TRUE),
+    n_observations = n(),
+    .groups = 'drop'
+  ) %>%
+  mutate(
+    month_numeric = as.numeric(month),
+    se_abundance = sd_abundance / sqrt(n_observations)
+  )
+
+print("Seasonal patterns by species:")
+print(seasonal_patterns)
+
+# Analysis 4: Phenological timing analysis
+phenology_timing <- time_series_data %>%
+  filter(phenology_stage %in% c("bud_break", "full_leaf", "senescence", "growth_initiation", "flowering")) %>%
+  group_by(species, phenology_stage) %>%
+  summarise(
+    mean_day = mean(day_of_year),
+    earliest_day = min(day_of_year),
+    latest_day = max(day_of_year),
+    duration_days = latest_day - earliest_day,
+    .groups = 'drop'
+  ) %>%
+  arrange(species, mean_day)
+
+print("Phenological timing analysis:")
+print(phenology_timing)
+
+# Analysis 5: Smooth trend modeling with GAM
+# Model species abundance as smooth function of day of year
+gam_model <- gam(abundance ~ s(day_of_year, k = 8) + habitat + species, 
+                 data = time_series_data, 
+                 family = poisson)
+
+gam_summary <- summary(gam_model)
+print("GAM model summary:")
+print(gam_summary)
+
+# Generate predictions for smooth visualization
+prediction_data <- expand_grid(
+  day_of_year = 1:365,
+  habitat = unique(time_series_data$habitat),
+  species = unique(time_series_data$species)
+) %>%
+  mutate(
+    predicted_abundance = predict(gam_model, newdata = ., type = "response")
+  )
+
+# Analysis 6: Long-term trend analysis
+trend_analysis <- extended_data %>%
+  group_by(year) %>%
+  summarise(
+    mean_temp = mean(temperature_c),
+    mean_abundance = mean(species_abundance),
+    spring_onset = mean(spring_onset_day),
+    .groups = 'drop'
+  ) %>%
+  mutate(
+    temp_trend = (mean_temp - mean_temp[1]) / (year - year[1]),
+    abundance_trend = (mean_abundance - mean_abundance[1]) / (year - year[1]),
+    phenology_trend = (spring_onset - spring_onset[1]) / (year - year[1])
+  )
+
+print("Long-term trends (per year):")
+print(trend_analysis)
+```
 
 ---
 

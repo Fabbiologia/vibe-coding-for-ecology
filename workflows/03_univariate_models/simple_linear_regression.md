@@ -1,5 +1,12 @@
 # Vibe Workflow: Univariate Models: Simple Linear Regression
 
+[![Reproducible](https://img.shields.io/badge/Reproducible-Yes-brightgreen)](https://github.com/Fabbiologia/vibe-coding-for-ecology)
+[![R](https://img.shields.io/badge/R-4.0+-blue)](https://www.r-project.org/)
+[![Tidyverse](https://img.shields.io/badge/Tidyverse-Compatible-orange)](https://www.tidyverse.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+
+
 **Goal:** Develop understanding of relationships between two variables, using the classic iris dataset as an example.
 
 **Vibe:** Building blocks of ecological analysis, focusing on simplicity and clarity in understanding one-to-one relationships.
@@ -36,7 +43,7 @@ Set computational reproducibility standards:
 
 ```english
 Create organized structure for analysis outputs:
-- Generate figures subdirectory within workflow folder for plots
+- Generate figures subdirectory within workflow 3_output folder for plots
 - Establish tables subdirectory for statistical summaries and data exports
 - Use here() function to create platform-independent directory paths
 - Check for existing directories to avoid overwriting previous work
@@ -260,38 +267,85 @@ Prediction Data Preparation:
 - Use minimum and maximum sepal lengths from original dataset as bounds
 - This provides comprehensive coverage for prediction visualization
 ```
+
+predictions <- predict(sepal_petal_model, 
+                      newdata = prediction_data, 
+                      interval = "confidence") %>%
+  as_tibble() %>%
+  bind_cols(prediction_data)
+
+prediction_plot <- ggplot() +
+  geom_ribbon(data = predictions, 
+              aes(x = Sepal.Length, ymin = lwr, ymax = upr),
+              alpha = 0.3, fill = "blue") +
+  geom_line(data = predictions,
+            aes(x = Sepal.Length, y = fit),
+            color = "blue", size = 1) +
+  geom_point(data = cleaned_data,
+             aes(x = Sepal.Length, y = Petal.Length, color = Species),
+             alpha = 0.7, size = 2) +
+  labs(
+    title = "Linear Model Predictions with 95% Confidence Bands",
+    x = "Sepal Length (cm)",
+    y = "Petal Length (cm)",
+    color = "Species"
+  ) +
+  theme_bw() +
+  theme(legend.position = "bottom")
+
+print(prediction_plot)
+
+# Save prediction plot
+ggsave(
+  here("workflows", "03_univariate_models", "3_output", "figures", "model_predictions.png"),
+  prediction_plot,
+  width = 8, height = 6, dpi = 300
+)
+```
+
 ---
 
 ## 🧬 5. Reproducibility Check
 
 Finally, we save our results and document our computational environment. This ensures that our analysis can be exactly reproduced by others and that our findings are preserved for future reference.
 
-```
-Save all key outputs from a linear regression analysis and generate a reproducible summary report.
+```r
+# Save model results to files
+write_csv(
+  model_results,
+  here("workflows", "03_univariate_models", "3_output", "tables", "model_summary.csv")
+)
 
-Instructions:
-Save Model Results:
-  - Export the tidy model summary (e.g., coefficients, standard errors, p-values, confidence intervals) as a CSV file to a designated tables output directory.
-  - Export the model fit statistics (e.g., R-squared, adjusted R-squared, F-statistic, p-value) as a separate CSV file in the same directory.
+write_csv(
+  model_fit,
+  here("workflows", "03_univariate_models", "3_output", "tables", "model_fit_statistics.csv")
+)
 
-Save Model Object:
-  - Save the fitted model object (e.g., from lm()) as an RDS file for future reuse or inspection.
+# Save the model object itself for future use
+saveRDS(
+  sepal_petal_model,
+  here("workflows", "03_univariate_models", "3_output", "tables", "sepal_petal_model.rds")
+)
 
-Save Predictions:
-  - Export the predictions (including fitted values and intervals, if available) as a CSV file for downstream analysis or visualization.
+# Save predictions for potential reuse
+write_csv(
+  predictions,
+  here("workflows", "03_univariate_models", "3_output", "tables", "model_predictions.csv")
+)
 
-Generate and Print a Summary Report:
-Print a summary to the console that includes:
-  - The model formula used.
-  - R-squared and adjusted R-squared values.
-  - F-statistic and its p-value.
-  - Slope estimate and its 95% confidence interval.
+# Create a summary report
+cat("=== Linear Regression Analysis Summary ===\n")
+cat("Model: Petal.Length ~ Sepal.Length\n")
+cat("R-squared:", round(model_fit$r.squared, 4), "\n")
+cat("Adjusted R-squared:", round(model_fit$adj.r.squared, 4), "\n")
+cat("F-statistic:", round(model_fit$statistic, 2), "\n")
+cat("p-value:", format(model_fit$p.value, scientific = TRUE), "\n")
+cat("Slope estimate:", round(model_results$estimate[2], 4), "\n")
+cat("Slope 95% CI: [", round(model_results$`2.5 %`[2], 4), ", ", 
+    round(model_results$`97.5 %`[2], 4), "]\n")
 
-Record Computational Environment:
-  - Output the session information (e.g., using sessionInfo() in R) to document the computational environment for reproducibility.
-
-File Organization:
-  - All outputs should be saved in a structured directory, e.g., workflows/03_univariate_models/3_output/tables/, to maintain a clean and reproducible workflow.
+# Record session information for reproducibility
+sessionInfo()
 ```
 
 ---

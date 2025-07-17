@@ -1,26 +1,30 @@
 # 🌱 Vibe Coding for Ecology: Agentic AI Workflows
 
-[![R-CMD-check](https://github.com/Fabbiologia/vibe-coding-for-ecology/workflows/R-CMD-check/badge.svg)](https://github.com/Fabbiologia/vibe-coding-for-ecology/actions)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXX)
+<p align="center">
+  <img src="https://img.shields.io/github/license/Fabbiologia/vibe-coding-for-ecology?color=yellow" alt="License"/>
+  <img src="https://img.shields.io/badge/Reproducible-Yes-brightgreen" alt="Reproducible"/>
+  <img src="https://img.shields.io/github/stars/Fabbiologia/vibe-coding-for-ecology?style=social" alt="GitHub stars"/>
+  <img src="https://img.shields.io/github/forks/Fabbiologia/vibe-coding-for-ecology?style=social" alt="GitHub forks"/>
+  <img src="https://img.shields.io/github/issues/Fabbiologia/vibe-coding-for-ecology" alt="GitHub issues"/>
+  <img src="https://img.shields.io/github/issues-pr/Fabbiologia/vibe-coding-for-ecology" alt="GitHub PRs"/>
+  <img src="https://img.shields.io/github/contributors/Fabbiologia/vibe-coding-for-ecology" alt="GitHub contributors"/>
+  <img src="https://img.shields.io/github/last-commit/Fabbiologia/vibe-coding-for-ecology" alt="Last commit"/>
+</p>
 
-## What is Vibe Coding for Agentic AI?
+---
 
-**Vibe Coding** meets **Agentic AI** - a revolutionary approach to computational ecology that combines human-centric analysis patterns with intelligent AI assistance. This repository provides state-of-the-art **context prompt engineering workflows** specifically designed for agentic coding tools (like Claude, GPT, Cursor, etc.) to help researchers conduct sophisticated ecological analyses.
+### Welcome to the complete documentation for the **Vibe Coding for Ecology** project! 
 
-**The core philosophy**: AI agents work best when given clear, structured context that mirrors how ecologists actually think. Our workflows provide rich contextual scaffolding that transforms vague research questions into precise, executable analysis pipelines.
+This index provides organized access to all workflows, examples, and guidelines for agentic AI-assisted ecological analysis.
 
-### Key Features for Agentic Coding:
-- **Context-Rich Prompts**: Each workflow includes detailed ecological context, statistical assumptions, and interpretation guidelines
-- **Structured Analysis Templates**: Pre-built frameworks that AI agents can understand and adapt
-- **Domain-Specific Constraints**: Ecological principles and statistical best practices built into every workflow
-- **Iterative Refinement Patterns**: Workflows designed for human-AI collaboration and continuous improvement
 
-## Repository Goal
+> **The core philosophy:** AI agents work best when given clear, structured context that mirrors how ecologists actually think. Our workflows provide rich contextual scaffolding that transforms vague research questions into precise, executable analysis pipelines.
 
-This repository serves as a **comprehensive prompt engineering library** for ecological analysis with AI agents. Our mission is to bridge the gap between ecological domain knowledge and AI capabilities, providing researchers with ready-to-use templates that can be copy-pasted into any agentic coding environment to instantly begin sophisticated ecological analyses.
+---
 
-## Repository Structure
+---
+
+## 📚 Repository Structure
 
 ```
 📁 vibe-coding-for-ecology  
@@ -34,26 +38,35 @@ This repository serves as a **comprehensive prompt engineering library** for eco
 │   └── CONTRIBUTING.md      # How to propose new rules and workflows
 │
 ├── workflows/               # Thematic folders containing Vibe workflows  
-│   ├── 01_data_wrangling/           # Tidy, join, re-shape  
-│   ├── 02_visualization/            # ggplot, maps, dashboards  
-│   ├── 03_univariate_models/        # t-tests, ANOVA, simple & multiple LM/GLM  
-│   ├── 04_multivariate_analysis/    # PCA, NMDS, CCA, RDA  
-│   ├── 05_diversity_metrics/        # Alpha, beta, rarefaction  
-│   ├── 06_mixed_effects_models/     # LMM, GLMM, Bayesian hierarchical  
-│   ├── 07_species_distribution/     # SDMs, ENMs, MaxEnt, Biomod2  
-│   ├── 08_spatial_analysis/         # Raster & vector ecology, spatial stats  
-│   ├── 09_time_series/              # ARIMA, GAMM, state-space, phenology  
-│   ├── 10_population_simulation/    # IPMs, matrix models, agent-based sims  
-│   └── 99_utilities/                # Helper functions, plotting themes  
+│   ├── 00_agentic_prompt_templates/   # Agentic prompt templates
+│   ├── 01_data_wrangling/             # Tidy, join, re-shape  
+│   ├── 02_visualization/              # ggplot, maps, dashboards  
+│   ├── 03_univariate_models/          # t-tests, ANOVA, simple & multiple LM/GLM  
+│   ├── 04_multivariate_analysis/      # PCA, NMDS, CCA, RDA  
+│   ├── 05_diversity_metrics/          # Alpha, beta, rarefaction  
+│   ├── 06_mixed_effects_models/       # LMM, GLMM, Bayesian hierarchical  
+│   ├── 07_time_series_analysis/       # ARIMA, GAMM, state-space, phenology  
+│   ├── 08_spatial_analysis/           # Raster & vector ecology, spatial stats  
+│   ├── 09_species_distribution/       # SDMs, ENMs, MaxEnt, Biomod2  
+│   ├── 10_population_simulation/      # IPMs, matrix models, agent-based sims  
 │
 ├── data/                    # Mini demo datasets only (≤ 1 MB each)  
 │   ├── raw/                 # Untouched originals  
 │   └── processed/           # Cleaned versions (RDS/CSV)  
 │
-└── .github/WORKFLOW_TEMPLATES/       # Optional CI for R-CMD-check, pkgdown
+└── docs/                    # Documentation, examples, QA reports, etc.
+    ├── README.md
+    ├── build_documentation.py
+    ├── examples/
+    ├── rules/
+    ├── workflows/
+    ├── assets/
+    └── figures/
 ```
 
-## 🤖 Agentic Coding Quick Start
+---
+
+## ⚡️ Agentic Coding Quick Start
 
 ### For AI Agents (Claude, GPT, etc.):
 
@@ -86,7 +99,9 @@ This repository serves as a **comprehensive prompt engineering library** for eco
    - Context prompts guide AI agents through ecological reasoning
    - Built-in validation ensures scientific rigor
 
-## Adding New Workflows
+---
+
+## 🌱 Adding New Workflows
 
 To contribute a new workflow theme:
 
@@ -99,7 +114,9 @@ To contribute a new workflow theme:
 
 Detailed contribution guidelines are in `rules/CONTRIBUTING.md`.
 
-## Proposing New Rules
+---
+
+## 🧑‍🤝‍🧑 Proposing New Rules
 
 Our coding standards evolve with the community. To suggest new guidelines or modifications:
 
@@ -108,13 +125,15 @@ Our coding standards evolve with the community. To suggest new guidelines or mod
 3. Discuss with the community
 4. Submit a PR with your proposed changes
 
-## Community Standards
+---
+
+## 🤝 Community Standards
 
 This project is committed to fostering an inclusive, welcoming environment. Please read our `CODE_OF_CONDUCT.md` before participating.
 
 ---
 
-## 🌱 Fork this repo, add your vibe!
+## 🌟 Fork this repo, add your vibe!
 
 Whether you're fixing a typo, adding a new workflow, or proposing a better way to visualize species accumulation curves, every contribution makes ecological analysis more accessible. Let's build something beautiful together.
 
