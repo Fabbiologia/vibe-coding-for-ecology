@@ -8,7 +8,15 @@
   <img src="https://img.shields.io/github/issues/Fabbiologia/vibe-coding-for-ecology" alt="GitHub issues"/>
   <img src="https://img.shields.io/github/issues-pr/Fabbiologia/vibe-coding-for-ecology" alt="GitHub PRs"/>
   <img src="https://img.shields.io/github/contributors/Fabbiologia/vibe-coding-for-ecology" alt="GitHub contributors"/>
-  <img src="https://img.shields.io/github/last-commit/Fabbiologia/vibe-coding-for-ecology" alt="Last commit"/>
+   <img src="https://img.shields.io/github/last-commit/Fabbiologia/vibe-coding-for-ecology" alt="Last commit"/>
+ 
+ ---
+
+  <a href="https://github.com/przadka/vibemanifesto-lp/">
+    <img src="figs/vibe_coding_manifesto.png" alt="Vibe Coding Manifesto Logo" width="400"/>
+  </a>
+  <br/>
+  <em>The Vibe Coding Manifesto – a visual summary of the principles guiding agentic, transparent, and reproducible coding for ecology. <a href="https://github.com/przadka/vibemanifesto-lp/">See the Vibe Coding Manifesto repository</a> for details.</em>
 </p>
 
 ---
